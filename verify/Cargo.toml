@@ -1,0 +1,28 @@
+[package]
+name = "ed25519-testvector-verify"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+
+# Eight small binaries: two verifiers and two signers (one of each per signature
+# scheme), the structural point checks, the offline key derivation, an address
+# helper and the block hasher. Both verifiers
+# take the same three hex arguments so the four cross-checks are invoked
+# identically.
+#
+# The Blake2b side is implemented in this repository from the curve and hash
+# primitives rather than pulled from a Nano library, so the vector can be
+# checked without taking a Nano implementation on trust. The dependencies below
+# are the usual widely-reviewed crates.
+
+[dependencies]
+hex = "0.4"
+ed25519-dalek = "2"
+curve25519-dalek = "4"
+blake2 = "0.10"
+sha2 = "0.10"
+
+[dev-dependencies]
+# Only the known-answer test reads vectors.json; nothing shipped needs it.
+serde_json = "1"

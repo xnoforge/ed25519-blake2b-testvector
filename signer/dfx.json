@@ -1,0 +1,15 @@
+{
+  "canisters": {
+    "signer": {
+      "type": "rust",
+      "package": "signer",
+      "candid": "signer.did"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": ""
+    }
+  },
+  "version": 1
+}

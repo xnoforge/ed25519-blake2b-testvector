@@ -1,0 +1,7 @@
+[toolchain]
+# Pinned, because run-checks.sh asserts a byte-exact module hash and a
+# different rustc can emit a different module from the same source.
+channel = "1.93.1"
+targets = ["wasm32-unknown-unknown"]
+# Named here so the pinned toolchain carries the tools CI runs.
+components = ["rustfmt", "clippy"]

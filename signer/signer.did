@@ -1,0 +1,11 @@
+service : {
+  // Reports algorithm, key name, derivation path and canister id.
+  "config" : () -> (text) query;
+
+  // Subnet-derived Ed25519 public key, hex. Without an argument the key of this
+  // canister, with one the key the subnet derives for that canister.
+  "get_public_key" : (opt principal) -> (variant { Ok : text; Err : text });
+
+  // Signs a hex-encoded message, returns the 64-byte signature as hex.
+  "sign" : (text) -> (variant { Ok : text; Err : text });
+}

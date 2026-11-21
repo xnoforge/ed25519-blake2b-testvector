@@ -1,0 +1,32 @@
+name: checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    # A cold run builds the dependency tree first and takes a couple of
+    # minutes; anything near the limit means something is wrong, not slow.
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      # Pinned to match rust-toolchain.toml. Asking for @stable here would be
+      # dead configuration: the toolchain file overrides it, so CI would
+      # download stable and then silently use 1.93.1 anyway.
+      - uses: dtolnay/rust-toolchain@1.93.1
+        with:
+          targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+      - name: formatting
+        run: |
+          cargo fmt --manifest-path verify/Cargo.toml --check
+          cargo fmt --manifest-path signer/Cargo.toml --check
+      - name: lints
+        run: |
+          cargo clippy --manifest-path verify/Cargo.toml --all-targets -- -D warnings
+          cargo clippy --manifest-path signer/Cargo.toml --target wasm32-unknown-unknown -- -D warnings
+      # dfx is deliberately not installed here, so the module-hash check
+      # reports "skip" and the run ends with "1 skipped". That check is the one
+      # tying this source to the deployed canister; it has to be run locally.
+      - name: the documented checks
+        run: ./run-checks.sh
