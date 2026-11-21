@@ -43,8 +43,7 @@
 //! odd one out, deliberately. Determinism here is a property of this binary,
 //! chosen so the vectors are reproducible — not a property of either scheme.
 //!
-//! `--intermediates` additionally prints every value above, which is what an
-//! implementer debugging a threshold version actually needs; a pass/fail
+//! `--intermediates` additionally prints every value above; a pass/fail
 //! outcome does not localise a mistake.
 //!
 //! Usage: sign-blake2b <privkey_hex> <message_hex> [--intermediates]

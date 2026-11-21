@@ -256,9 +256,7 @@ fn signer_reproduces_the_published_keypair() {
     );
 }
 
-/// Signing is deterministic, which is what makes these usable as known answers
-/// — and is the one place the scheme differs observably from the threshold
-/// signatures it is compared against, which are not.
+/// Signing is deterministic, which is what makes these usable as known answers.
 #[test]
 fn signing_is_deterministic() {
     const PRIV: &str = "781186FB9EF17DB6E3D1056550D9FAE5D5BBADA6A6BC370E4CBB938B1DC71DA3";
